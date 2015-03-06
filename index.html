@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Codify</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="css/prism.css"/>
+
+</head>
+<body>
+
+
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="js/prism.js"></script>
+
+
+    <script src="http://fb.me/react-0.12.2.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
+    <script type="text/jsx">
+
+        var Container = React.createClass({
+            getInitialState: function() {
+
+                var text = this.props.initialText;
+
+                return {
+                  CodeText: text
+              };
+            },
+            onChange: function(e) {
+                this.setState({CodeText: e.target.value});
+            },
+            render: function() {
+                return (
+                        <div className="container">
+                                <h3>{'Enter some '+this.props.language}</h3>
+                                <pre><code className={'language-'+this.props.language}>{this.state.CodeText}</code></pre>
+                                <input type="text" className="form-control" onChange={this.onChange} placeholder="Enter code here"/>
+                        </div>
+                );
+            },
+            componentDidMount: function() {
+                Prism.highlightAll();
+            },
+            componentDidUpdate: function() {
+                Prism.highlightAll();
+            }
+        });
+
+        React.render(
+                <div className="container">
+                    <h1>Codify</h1>
+                    <Container language="java" initialText='System.Out.Println("Java");'/>
+                    <Container language="javascript" initialText='Console.log("javascript")'/>
+                    <Container language="csharp" initialText='Console.WriteLine("C#");'/>
+                    <Container language="sql" initialText='INSERT INTO Language VALUES "SQL"'/>
+                    <Container language="markdown" initialText='<element>XML like stuff</element>'/>
+                </div>,
+                document.body
+        );
+
+
+    </script>
+
+
+
+</body>
+</html>
